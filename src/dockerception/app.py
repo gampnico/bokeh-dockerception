@@ -64,16 +64,16 @@ app.add_middleware(  # TODO: Bremen cluster support
 # app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-@app.get("/favicon.ico", include_in_schema=False)
-async def favicon():
-    file_name = "favicon.ico"
-    file_path = Path(app.root_path)
-    file_path = file_path / "static" / file_name
+# @app.get("/favicon.ico", include_in_schema=False)
+# async def favicon():
+#     file_name = "favicon.ico"
+#     file_path = Path(app.root_path)
+#     file_path = file_path / "static" / file_name
 
-    return FileResponse(
-        path=file_path,
-        headers={"Content-Disposition": "attachment; filename=" + file_name},
-    )
+#     return FileResponse(
+#         path=file_path,
+#         headers={"Content-Disposition": "attachment; filename=" + file_name},
+#     )
 
 
 """Error handling"""
