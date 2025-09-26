@@ -1,0 +1,80 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dockerception"
+version = "0.1.0"
+authors = [
+    { name = "gampnico", email = "" },
+]
+description = "Testing ground for Bokeh apps via Docker-in-Docker."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+keywords = [
+    "API",   
+]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Development Status :: 1 - Planning",
+    "Private :: Do Not Upload",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Environment :: Web Environment",
+    "Framework :: FastAPI",
+    "Topic :: Database :: Front-Ends",
+    "Topic :: Software Development :: User Interfaces",
+]
+dependencies = [
+    "fastapi[standard]",
+    "panel[fastapi]",
+    "param",
+    "bokeh",
+    "bokeh-fastapi",
+    "holoviews",
+]
+
+[project.optional-dependencies]
+tests = [
+    "pytest",
+    "coverage",
+    "matplotlib",
+    "numpy",
+]
+dev = [
+    "dockerception[tests]",
+    "hatchling >= 1.12",
+    "build >= 0.7",
+    "pylint >= 2.16.1",
+    "flake8 >= 6.0",
+    "black >= 23.1",
+    "isort",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/gampnico/bokeh-dockerception"
+"Bug Tracker" = "https://github.com/gampnico/bokeh-dockerception/issues"
+
+
+[tool.hatch.build.targets.sdist]
+packages = ["src/dockerception"]
+exclude = [
+    "logs",
+    "*.png",
+    "*.vtu",
+    "*.csv",
+    "*.nc",
+    "*.bat",
+    "*.sh",
+    "*.ipynb",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dockerception"]
+
+[tool.hatch.metadata]
+allow-direct-references = true

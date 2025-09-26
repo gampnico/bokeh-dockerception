@@ -1,0 +1,11 @@
+# This assumes you have installed OGGM and DTCG's dependencies
+# If not, use requirements.yml or pyproject.toml
+fastapi[standard]
+panel[fastapi]
+dockerception @ git+https://github.com/gampnico/bokeh-dockerception
+param
+bokeh
+holoviews
+pytest
+numpy
+matplotlib
