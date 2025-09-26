@@ -14,4 +14,4 @@ COPY ./src/dockerception/static/ /app/static/
 RUN pip install --no-cache-dir --upgrade -e .
 
 
-CMD ["fastapi", "run", "dockerception/main.py", "--proxy-headers", "--port", "8080"]
+CMD ["fastapi", "run", "dockerception/app.py", "--proxy-headers", "--port", "8080"]
