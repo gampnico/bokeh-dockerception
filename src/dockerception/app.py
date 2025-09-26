@@ -98,9 +98,18 @@ async def read_root(request: Request):
     logger.info("Redirect from root to /dockerception/app")
     return RedirectResponse(url="/dockerception/app")
 
+@app.get("/dockerception")
+async def read_link(request: Request):
+    """Get homepage.
+
+    This just redirects to the dashboard, but can be extended if
+    multiple apps are implemented.
+    """
+    logger.info("Redirect from root to /dockerception/app")
+    return RedirectResponse(url="/dockerception/app")
 
 @app.get("/app")
-async def read_root(request: Request):
+async def read_app(request: Request):
     """Get homepage.
 
     This just redirects to the dashboard, but can be extended if
