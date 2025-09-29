@@ -34,7 +34,7 @@ from dockerception.ui.interface.apps.pn_sinewave import get_sinewave_dashboard
 logger = logging.getLogger(__name__)
 
 logger.info("Initialising app")
-app = FastAPI()
+app = FastAPI(root_path="/dockerception")
 
 BASE_DIR = Path(__file__).resolve().parent
 logger.info(f"BASE_DIR: {BASE_DIR}")
@@ -57,23 +57,21 @@ app.add_middleware(  # TODO: Bremen cluster support
         "localhost",
         "dtcg.github.io",
         "bokeh.oggm.org",
-        "bokeh.oggm.org/dtcg_l2_dashboard",
+        "bokeh.oggm.org/dockerception",
     ],
 )
 
-# app.mount("/static", StaticFiles(directory="static"), name="static")
 
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    file_name = "favicon.ico"
+    file_path = Path(app.root_path)
+    file_path = file_path / "static" / file_name
 
-# @app.get("/favicon.ico", include_in_schema=False)
-# async def favicon():
-#     file_name = "favicon.ico"
-#     file_path = Path(app.root_path)
-#     file_path = file_path / "static" / file_name
-
-#     return FileResponse(
-#         path=file_path,
-#         headers={"Content-Disposition": "attachment; filename=" + file_name},
-#     )
+    return FileResponse(
+        path=file_path,
+        headers={"Content-Disposition": "attachment; filename=" + file_name},
+    )
 
 
 """Error handling"""
@@ -96,36 +94,16 @@ async def read_root(request: Request):
     multiple apps are implemented.
     """
     logger.info("Redirect from root to /dockerception/app")
-    return RedirectResponse(url="/dockerception/app")
-
-@app.get("/dockerception")
-async def read_link(request: Request):
-    """Get homepage.
-
-    This just redirects to the dashboard, but can be extended if
-    multiple apps are implemented.
-    """
-    logger.info("Redirect from root to /dockerception/app")
-    return RedirectResponse(url="/dockerception/app")
-
-@app.get("/app")
-async def read_app(request: Request):
-    """Get homepage.
-
-    This just redirects to the dashboard, but can be extended if
-    multiple apps are implemented.
-    """
-    logger.info("Redirect from /app to /dockerception/app")
-    return RedirectResponse(url="/dockerception/app")
+    return RedirectResponse(url=f"{app.root_path}/app")
 
 
 @add_application(
-    "/dockerception/app",
+    "/app",
     app=app,
     title="Dockerception Dashboard",
     # address=hostname,
     # port=f"{port}",
-    # show=False,
+    # # show=False,
     # allow_websocket_origin=[
     #     f"{hostname}:{port}",
     #     f"localhost:{port}",
