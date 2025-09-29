@@ -1,16 +1,16 @@
 FROM python:3.11
 
-WORKDIR /dtcgweb/
+WORKDIR /app/
 
-COPY ./requirements.txt /dtcgweb/requirements.txt
-COPY ./pyproject.toml /dtcgweb/pyproject.toml
-COPY ./README.md /dtcgweb/README.md
-COPY ./LICENSE /dtcgweb/LICENSE
-COPY ./src/dockerception /dtcgweb/dockerception/
-COPY ./src/dockerception/static/ /dtcgweb/static/
+COPY ./requirements.txt /app/requirements.txt
+COPY ./pyproject.toml /app/pyproject.toml
+COPY ./README.md /app/README.md
+COPY ./LICENSE /app/LICENSE
+COPY ./src/dockerception /app/dockerception/
+COPY ./src/dockerception/static/ /app/static/
 
 # RUN pip install --no-cache-dir --upgrade -e .
 RUN pip install --upgrade -e .
 
-WORKDIR /dtcgweb/dockerception/
+WORKDIR /app/dockerception/
 CMD ["fastapi", "run", "app.py", "--proxy-headers", "--port", "8080"]
