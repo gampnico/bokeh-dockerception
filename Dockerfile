@@ -13,4 +13,4 @@ COPY ./src/dockerception/static/ /dtcgweb/static/
 RUN pip install --upgrade -e .
 
 WORKDIR /dtcgweb/dockerception/
-CMD ["fastapi", "run", "app.py", "--proxy-headers", "--port", "8080"]
+# CMD ["fastapi", "run", "app.py", "--proxy-headers", "--port", "8080"]
